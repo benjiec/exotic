@@ -1,0 +1,31 @@
+input:
+
+three dimensional complex data
+
+sample - with many properties
+observation
+value - dict, not a single value
+
+select samples
+select observations
+compare by one or more properties
+filter by one or more properties
+filter what value to display
+output CSV
+
+example:
+
+sample = datasets
+  properties
+    - timepoints
+    - reactions
+    - duplicates
+    - subjects
+    - buffers
+    - samples
+    - strains
+    - molecules
+
+observation = targets with names
+
+value = peaks
