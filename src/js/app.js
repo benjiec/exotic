@@ -1,7 +1,7 @@
 var app = angular.module('exotic', ['ngRoute', 'ngSanitize'])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
-      .when('/', { template: JST['main'],
+      .when('/', { template: JST['container'],
                    controller: ExoticController})
       .otherwise({redirectTo: '/'});
   }]);

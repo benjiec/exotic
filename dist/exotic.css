@@ -1,0 +1,20 @@
+#alerts {
+  position: absolute;
+  z-index: 10;
+  right: 0px;
+  top: 0px;
+}
+
+.jumbotron { background-color: white; }
+
+#left-menu {
+  background-color: #f0f0f0;
+  min-height: 800px;
+}
+
+#left-menu ul {
+  list-style: none;
+  padding-left: 25px;
+}
+
+#left-menu li input { margin-right: 10px; }

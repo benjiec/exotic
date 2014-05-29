@@ -1,0 +1,29 @@
+<p>
+  <a href="#/" class="lead">Exotic</a>
+</p>
+
+<p>
+  <b>Samples</b>
+</p>
+
+<ul>
+  <li ng-repeat="sample in samples">
+    <input type="checkbox"
+           ng-checked="selected_samples.indexOf(sample) > -1"
+           ng-click="selectSample(sample)" />
+    {{ sample.name }}
+  </li>
+</ul>
+
+<p>
+  <b>Observations</b>
+</p>
+
+<ul>
+  <li ng-repeat="observation in observations">
+    <input type="checkbox"
+           ng-checked="selected_observations.indexOf(observation) > -1"
+           ng-click="selectObservation(observation)" />
+    {{ observation.name }}
+  </li>
+</ul>

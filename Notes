@@ -1,19 +1,10 @@
-input:
+List properties
+If filtering by properties, group/color by property and label
+List attributes, include/exclude
+Customized columns - e.g. EIC
+Output CSV
 
-three dimensional complex data
-
-sample - with many properties
-observation
-value - dict, not a single value
-
-select samples
-select observations
-compare by one or more properties
-filter by one or more properties
-filter what value to display
-output CSV
-
-example:
+Example:
 
 sample = datasets
   properties

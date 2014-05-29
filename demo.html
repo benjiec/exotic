@@ -20,5 +20,51 @@
 
 <div ng-view></div>
 
+<script>
+
+function demoSample(name, properties) {
+  this.id = name;
+  this.name = name;
+  this.properties = function() { return properties; }
+}
+
+exoticSamples.get = function ($http, cb) {
+  var samples = [];
+  samples.push(new demoSample('s1', ['red', 'green', 'blue']));
+  samples.push(new demoSample('s2', ['red', 'green']));
+  samples.push(new demoSample('s3', ['orange', 'blue']));
+  samples.push(new demoSample('s4', ['orange']));
+  cb(samples);
+}
+
+function demoObs(name) {
+  this.id = name;
+  this.name = name;
+}
+
+exoticObservations.get = function ($http, cb) {
+  var observations = [];
+  observations.push(new demoObs('f1'));
+  observations.push(new demoObs('f2'));
+  cb(observations);
+};
+
+function demoValue() {
+  this.a = Math.random();
+  this.b = Math.random();
+  this.c = Math.random();
+  this.__fields__ = ['a', 'b', 'c'];
+}
+
+exoticValues.get = function ($http, samples, observation, cb) {
+  setTimeout(function() {
+    var v = [];
+    for (var i=0; i<samples.length; i++) { v.push(new demoValue()); }
+    cb(v);
+  }, 1000);
+}
+
+</script>
+
 </body>
 </html>

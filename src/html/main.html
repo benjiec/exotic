@@ -1,7 +1,28 @@
-<div class="container-fluid">
+<div ng-if="fetches.length > 0" class="panel panel-warning" id="alerts">
+  <div class="panel-heading"><b>Fetching data for</b></div>
+  <div class="panel-body">
+    <span ng-repeat="fetch in fetches">
+      {{ fetch }}
+      <br/>
+    </span>
+  </div>
+</div>
 
-<p>
-  <a href="#/" class="lead">Exotic</a>
-</p>
+<div ng-if="selected_samples.length > 0 && selected_observations.length > 0">
+  <p>
+    {{ selected_samples.length }} sample(s),
+    {{ selected_observations.length }} observation(s).
+  </p>
+  <partial template="table"></partial>
+</div>
 
-</div> <!-- container-fluid -->
+<div ng-if="selected_samples.length == 0 || selected_observations.length == 0">
+  <div class="jumbotron">
+    <h1>
+      Are your data exotic?
+    </h1>
+    <p>
+      Select some samples and observations to see.
+    </p>
+  </div>
+</div>

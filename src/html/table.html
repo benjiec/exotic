@@ -1,0 +1,26 @@
+<table class="table table-condensed table-bordered">
+  <tr class="success">
+    <th>
+    </th>
+    <th ng-repeat="obs in selected_observations" colspan="{{ example_value.__fields__.length }}">
+      {{ obs.name }}
+    </th>
+  </tr>
+
+  <tr class="success">
+    <th>
+    </th>
+    <th ng-repeat="field in fields">
+      {{ field[1] }}
+    </th>
+  </tr>
+
+  <tr ng-repeat="sample in selected_samples">
+    <td>
+      {{ sample.name }}
+    </td>
+    <td ng-repeat="field in fields">
+      {{ data_by_sample[sample.id][field[0]][field[1]] }}
+    </td>
+  </tr>
+</table>
