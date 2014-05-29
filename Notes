@@ -1,5 +1,8 @@
+TODO:
+
 List properties
 If filtering by properties, group/color by property and label
+Batch fetch for all samples - default?
 List attributes, include/exclude
 Customized columns - e.g. EIC
 Output CSV

@@ -2,7 +2,8 @@ exoticSamples = (new function () {
   this.get = function ($http, cb) {
     //
     // Implemention should return list of objects with id and name attributes
-    // and properties method. id attribute should be unique.
+    // and properties method. id attribute should be unique. Each property
+    // should be a string.
     //
     alert("Not configured with a customized list of samples.");
     cb([]);

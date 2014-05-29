@@ -3,6 +3,19 @@
 </p>
 
 <p>
+  <b>Observations</b>
+</p>
+
+<ul>
+  <li ng-repeat="observation in observations">
+    <input type="checkbox"
+           ng-checked="selected_observations.indexOf(observation) > -1"
+           ng-click="selectObservation(observation)" />
+    {{ observation.name }}
+  </li>
+</ul>
+
+<p>
   <b>Samples</b>
 </p>
 
@@ -16,14 +29,13 @@
 </ul>
 
 <p>
-  <b>Observations</b>
+  <b>Properties</b>
 </p>
 
 <ul>
-  <li ng-repeat="observation in observations">
-    <input type="checkbox"
-           ng-checked="selected_observations.indexOf(observation) > -1"
-           ng-click="selectObservation(observation)" />
-    {{ observation.name }}
+  <li ng-repeat="property in properties">
+    <input type="checkbox" />
+    {{ property }}
   </li>
 </ul>
+

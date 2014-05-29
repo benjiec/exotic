@@ -2,7 +2,8 @@ exoticSamples = (new function () {
   this.get = function ($http, cb) {
     //
     // Implemention should return list of objects with id and name attributes
-    // and properties method. id attribute should be unique.
+    // and properties method. id attribute should be unique. Each property
+    // should be a string.
     //
     alert("Not configured with a customized list of samples.");
     cb([]);
@@ -37,6 +38,7 @@ exoticValues = (new function () {
 function ExoticController($scope, $http) {
   $scope.samples = [];
   $scope.observations = [];
+  $scope.properties = [];
   $scope.selected_samples = [];
   $scope.selected_observations = [];
   $scope.fetches = [];
@@ -50,6 +52,18 @@ function ExoticController($scope, $http) {
       for (var i=0; i<$scope.selected_observations.length; i++) {
         for (var j=0; j<$scope.example_value.__fields__.length; j++) {
           $scope.fields.push([$scope.selected_observations[i].id, $scope.example_value.__fields__[j]]);
+        }
+      }
+    }
+  }
+
+  function update_properties() {
+    for (var i=0; i<$scope.samples.length; i++) {
+      var sample = $scope.samples[i];
+      var properties = sample.properties();
+      for (var j=0; j<properties.length; j++) {
+        if ($scope.properties.indexOf(properties[j]) < 0) {
+          $scope.properties.push(properties[j]);
         }
       }
     }
@@ -111,7 +125,10 @@ function ExoticController($scope, $http) {
     update_fields();
   }
 
-  exoticSamples.get($http, function(samples) { $scope.samples = samples; });
+  exoticSamples.get($http, function(samples) {
+    $scope.samples = samples;
+    update_properties();
+  });
   exoticObservations.get($http, function(observations) { $scope.observations = observations; });
 }
 
