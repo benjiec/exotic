@@ -11,8 +11,8 @@
   <li ng-repeat="observation in observations">
     <input type="checkbox"
            ng-checked="selected_observations.indexOf(observation) > -1"
-           ng-click="selectObservation(observation)" />
-    {{ observation.name }}
+           ng-click="selectObservation(observation)"
+     /> {{ observation.name }}
   </li>
 </ul>
 
@@ -25,7 +25,8 @@
   <li ng-repeat="attr in example_value.__attrs__">
     <input type="checkbox"
            ng-checked="object_attrs.indexOf(attr) >= 0"
-           ng-click="toggleAttribute(attr)" /> {{ attr }}
+           ng-click="toggleAttribute(attr)"
+     /> {{ attr }}
   </li>
 </ul>
 
@@ -38,10 +39,12 @@
   <li ng-repeat="sample in samples">
     <input type="checkbox"
            ng-checked="selected_samples.indexOf(sample) > -1"
-           ng-click="selectSample(sample)" />
-    {{ sample.name }}
+           ng-click="selectSample(sample)"
+     /> {{ sample.name }}
   </li>
 </ul>
+
+
 <p>
   <b>Sample Properties</b>
 </p>
@@ -49,10 +52,14 @@
 <div ng-repeat="(name, props) in properties">
   <input type="checkbox"
          ng-checked="show_properties.indexOf(name) >= 0"
-         ng-click="toggleProperty(name)" /> {{ name }}
+         ng-click="toggleProperty(name)"
+   /> {{ name }}
   <ul>
     <li ng-repeat="value in props">
-      <input type="checkbox" /> {{ value }}
+      <input type="checkbox"
+             ng-checked="filter_properties[name].indexOf(value) >= 0"
+             ng-click="filterProperty(name, value)"
+       /> {{ value }}
     </li>
   </ul>
 </div>

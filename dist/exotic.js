@@ -38,15 +38,19 @@ exoticValues = (new function () {
 function ExoticController($scope, $http) {
   $scope.samples = [];
   $scope.observations = [];
-  $scope.properties = {};
-  $scope.show_properties = [];
   $scope.selected_samples = [];
   $scope.selected_observations = [];
+  
   $scope.fetches = [];
+  $scope.data_by_sample = {};
+
   $scope.example_value = undefined;
   $scope.object_attrs = undefined;
-  $scope.data_by_sample = {};
   $scope.attrs = [];
+
+  $scope.properties = {};
+  $scope.show_properties = [];
+  $scope.filter_properties = {};
 
   function update_attrs() {
     if ($scope.example_value !== undefined) {
@@ -95,8 +99,10 @@ function ExoticController($scope, $http) {
       }
     }
     $scope.show_properties = [];
+    $scope.filter_properties = {};
     for (var k in $scope.properties) {
       $scope.show_properties.push(k);
+      $scope.filter_properties[k] = $scope.properties[k].slice(0);
     }
   }
 
@@ -114,7 +120,32 @@ function ExoticController($scope, $http) {
       }
       $scope.show_properties = new_props;
     }
-    console.log($scope.show_properties);
+  }
+
+  $scope.filterProperty = function (prop, value) {
+    var i = $scope.filter_properties[prop].indexOf(value);
+    if (i >= 0) { // remove
+      $scope.filter_properties[prop].splice(i, 1);
+    }
+    else {
+      $scope.filter_properties[prop].push(value);
+    }
+
+    // update selected sample list
+    var ss = [];
+    for (var i=0; i<$scope.samples.length; i++) {
+      // a sample is "selected" if all its properties appear in
+      // filter_properties
+      var sample = $scope.samples[i];
+      var props = sample.properties();
+      var selected = true;
+      for (var k in props) {
+        var v = props[k];
+        if ($scope.filter_properties[k].indexOf(v) < 0) { selected = false; break; }
+      }
+      if (selected === true) { ss.push(sample); }
+    }
+    $scope.selected_samples = ss;
   }
 
   function fetch(sample, observation) {
