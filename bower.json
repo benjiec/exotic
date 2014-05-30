@@ -1,6 +1,13 @@
 {
   "name": "exotic",
-  "ignore": [ "**/*" ],
+  "version": "0.1.0",
+  "main": [
+    "./dist/exotic.css",
+    "./dist/exotic.js",
+    "./dist/exotic.min.js",
+    "./dist/exotic_jst.js"
+  ],
+  "ignore": [ "lib", "src", "build_assets.py", "requirements.txt", ".gitignore", ".git" ],
   "dependencies": {
     "bootstrap": "3.1.1",
     "angular": "1.2.4",
