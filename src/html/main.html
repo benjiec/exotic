@@ -1,10 +1,7 @@
-<div ng-if="fetches.length > 0" class="panel panel-warning" id="alerts">
-  <div class="panel-heading"><b>Fetching data for</b></div>
+<div ng-if="fetches > 0" class="panel panel-warning" id="alerts">
+  <div class="panel-heading"><b>Fetching data</b></div>
   <div class="panel-body">
-    <span ng-repeat="fetch in fetches">
-      {{ fetch }}
-      <br/>
-    </span>
+    {{ fetches }} outstanding request(s)
   </div>
 </div>
 

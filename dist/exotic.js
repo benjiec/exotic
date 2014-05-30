@@ -41,7 +41,7 @@ function ExoticController($scope, $http) {
   $scope.selected_samples = [];
   $scope.selected_observations = [];
   
-  $scope.fetches = [];
+  $scope.fetches = 0;
   $scope.data_by_sample = {};
 
   $scope.example_value = undefined;
@@ -148,34 +148,39 @@ function ExoticController($scope, $http) {
     $scope.selected_samples = ss;
   }
 
-  function fetch(sample, observation) {
-    function fetch_desc(sample, observation) {
-      return ""+sample.name+", "+observation.name;
+  function fetch(samples, observation) {
+    var to_fetch = [];
+    for (var i=0; i<samples.length; i++) {
+      var sample = samples[i];
+      if ($scope.data_by_sample[sample.id] === undefined) {
+        $scope.data_by_sample[sample.id] = {};
+      }
+      if ($scope.data_by_sample[sample.id][observation.id] === undefined) {
+        to_fetch.push(sample);
+        // remember we are fetching this sample and observation
+        $scope.data_by_sample[sample.id][observation.id] = 'fetching';
+      }
     }
 
-    if ($scope.data_by_sample[sample.id] === undefined) {
-      $scope.data_by_sample[sample.id] = {};
-    }
-    if ($scope.data_by_sample[sample.id][observation.id] === undefined) {
-      // remember we are fetching this sample and observation
-      $scope.data_by_sample[sample.id][observation.id] = 'fetching';
-      $scope.fetches.push(fetch_desc(sample, observation));
-      exoticValues.get($http, [sample], observation, function(values) {
-        $scope.data_by_sample[sample.id][observation.id] = values[0];
+    if (to_fetch.length == 0) { return; }
+    $scope.fetches += 1;
+
+    exoticValues.get($http, to_fetch, observation, function(values) {
+      for (var i=0; i<to_fetch.length; i++) {
+        var sample = to_fetch[i];
+        var value = values[i];
+        $scope.data_by_sample[sample.id][observation.id] = value;
         if ($scope.example_value === undefined) {
-          $scope.example_value = values[0];
+          $scope.example_value = value;
           $scope.object_attrs = $scope.example_value.__attrs__.slice(0);
           update_attrs();
         }
+      }
 
-        // update alerts
-        var i = $scope.fetches.indexOf(fetch_desc(sample, observation));
-        $scope.fetches.splice(i, 1);
-
-        // force notification of scope changes
-        $scope.$apply();
-      });
-    }
+      $scope.fetches -= 1;
+      // force notification of scope changes
+      $scope.$apply();
+    });
   }
 
   $scope.selectSample = function(sample) {
@@ -186,7 +191,7 @@ function ExoticController($scope, $http) {
       $scope.selected_samples.push(sample);
       // fetch data for this sample with all selected observations
       for (var i=0; i<$scope.selected_observations.length; i++) {
-        fetch(sample, $scope.selected_observations[i]);
+        fetch([sample], $scope.selected_observations[i]);
       }
     }
   }
@@ -198,9 +203,7 @@ function ExoticController($scope, $http) {
     else {
       $scope.selected_observations.push(observation);
       // fetch data for this observation with all selected samples
-      for (var i=0; i<$scope.selected_samples.length; i++) {
-        fetch($scope.selected_samples[i], observation);
-      }
+      fetch($scope.selected_samples, observation);
     }
     update_attrs();
   }
