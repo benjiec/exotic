@@ -2,6 +2,7 @@
   <a href="#/" class="lead">Exotic</a>
 </p>
 
+
 <p>
   <b>Observations</b>
 </p>
@@ -15,6 +16,20 @@
   </li>
 </ul>
 
+
+<p>
+  <b>Observation Attributes</b>
+</p>
+
+<ul>
+  <li ng-repeat="attr in example_value.__attrs__">
+    <input type="checkbox"
+           ng-checked="object_attrs.indexOf(attr) >= 0"
+           ng-click="toggleAttribute(attr)" /> {{ attr }}
+  </li>
+</ul>
+
+
 <p>
   <b>Samples</b>
 </p>
@@ -27,15 +42,17 @@
     {{ sample.name }}
   </li>
 </ul>
-
 <p>
-  <b>Properties</b>
+  <b>Sample Properties</b>
 </p>
-
-<ul>
-  <li ng-repeat="property in properties">
-    <input type="checkbox" />
-    {{ property }}
-  </li>
-</ul>
-
+  
+<div ng-repeat="(name, props) in properties">
+  <input type="checkbox"
+         ng-checked="show_properties.indexOf(name) >= 0"
+         ng-click="toggleProperty(name)" /> {{ name }}
+  <ul>
+    <li ng-repeat="value in props">
+      <input type="checkbox" /> {{ value }}
+    </li>
+  </ul>
+</div>

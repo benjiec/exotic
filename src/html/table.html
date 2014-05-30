@@ -1,17 +1,16 @@
 <table class="table table-condensed table-bordered">
   <tr class="success">
-    <th>
-    </th>
-    <th ng-repeat="obs in selected_observations" colspan="{{ example_value.__fields__.length }}">
+    <th></th>
+    <th ng-repeat="k in show_properties"></th>
+    <th ng-repeat="obs in selected_observations" colspan="{{ object_attrs.length }}">
       {{ obs.name }}
     </th>
   </tr>
 
   <tr class="success">
-    <th>
-      Sample
-    </th>
-    <th ng-repeat="field in fields">
+    <th> Sample </th>
+    <th ng-repeat="k in show_properties"> {{ k }} </th>
+    <th ng-repeat="field in attrs">
       {{ field[1] }}
     </th>
   </tr>
@@ -20,7 +19,10 @@
     <td>
       {{ sample.name }}
     </td>
-    <td ng-repeat="field in fields">
+    <th ng-repeat="k in show_properties">
+      {{ sample.properties()[k] }}
+    </td>
+    <td ng-repeat="field in attrs">
       {{ data_by_sample[sample.id][field[0]][field[1]] }}
     </td>
   </tr>

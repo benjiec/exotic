@@ -8,7 +8,7 @@
   </div>
 </div>
 
-<div ng-if="selected_samples.length > 0">
+<div ng-if="selected_samples.length != 0 && selected_observations.length != 0">
   <p>
     {{ selected_samples.length }} sample(s),
     {{ selected_observations.length }} observation(s).
@@ -16,13 +16,13 @@
   <partial template="table"></partial>
 </div>
 
-<div ng-if="selected_samples.length == 0">
+<div ng-if="selected_samples.length == 0 || selected_observations.length == 0">
   <div class="jumbotron">
     <h1>
       Are your data exotic?
     </h1>
     <p>
-      Select some samples to find out.
+      Select some samples and observations to find out.
     </p>
   </div>
 </div>
