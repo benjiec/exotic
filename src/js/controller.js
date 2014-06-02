@@ -28,7 +28,6 @@ function ExoticController($scope, $http) {
           }
         }
       }
-      $scope.attrs = $scope.attrs.sort();
     }
   }
 
@@ -70,6 +69,7 @@ function ExoticController($scope, $http) {
       $scope.show_properties.push(k);
       $scope.filter_properties[k] = $scope.properties[k].slice(0);
     }
+    $scope.show_properties = $scope.show_properties.sort();
   }
 
   $scope.toggleProperty = function (prop) {
