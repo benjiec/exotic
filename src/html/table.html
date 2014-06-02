@@ -23,7 +23,10 @@
       {{ sample.properties()[k] }}
     </td>
     <td ng-repeat="field in attrs">
-      {{ data_by_sample[sample.id][field[0]][field[1]] }}
+      <img ng-if="field[2] === 'img'"
+           src="{{ data_by_sample[sample.id][field[0]][field[1]] }}" />
+      <span ng-if="field[2] !== 'img'"
+       >{{ data_by_sample[sample.id][field[0]][field[1]] }}</span>
     </td>
   </tr>
 </table>

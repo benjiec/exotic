@@ -23,8 +23,10 @@ function ExoticController($scope, $http) {
       for (var i=0; i<$scope.selected_observations.length; i++) {
         for (var j=0; j<$scope.example_value.__attrs__.length; j++) {
           var field = $scope.example_value.__attrs__[j];
+          var type = null;
+          if ($scope.example_value.__type__) { type = $scope.example_value.__type__[j]; }
           if ($scope.object_attrs.indexOf(field) >= 0) {
-            $scope.attrs.push([$scope.selected_observations[i].id, field]);
+            $scope.attrs.push([$scope.selected_observations[i].id, field, type]);
           }
         }
       }
