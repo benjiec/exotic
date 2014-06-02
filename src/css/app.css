@@ -13,6 +13,7 @@
 }
 
 #left-menu table { margin-left: 25px; }
+#left-menu table td { vertical-align: top; }
 #left-menu table td:first-child { padding-right: 10px; }
 
 #left-menu li input { margin-right: 10px; }
