@@ -143,8 +143,6 @@ function ExoticController($scope, $http) {
       }
 
       $scope.fetches -= 1;
-      // force notification of scope changes
-      $scope.$apply();
     });
   }
 

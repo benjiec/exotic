@@ -57,11 +57,9 @@ function demoValue() {
 }
 
 exoticValues.get = function ($http, samples, observation, cb) {
-  setTimeout(function() {
-    var v = [];
-    for (var i=0; i<samples.length; i++) { v.push(new demoValue()); }
-    cb(v);
-  }, 1000);
+  var v = [];
+  for (var i=0; i<samples.length; i++) { v.push(new demoValue()); }
+  cb(v);
 }
 
 </script>
