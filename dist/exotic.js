@@ -170,7 +170,7 @@ function ExoticController($scope, $http) {
         var sample = to_fetch[i];
         var value = values[i];
         $scope.data_by_sample[sample.id][observation.id] = value;
-        if ($scope.example_value === undefined) {
+        if (value !== null && $scope.example_value === undefined) {
           $scope.example_value = value;
           $scope.object_attrs = $scope.example_value.__attrs__.slice(0);
           update_attrs();
