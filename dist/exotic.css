@@ -12,9 +12,7 @@
   min-height: 800px;
 }
 
-#left-menu ul {
-  list-style: none;
-  padding-left: 25px;
-}
+#left-menu table { margin-left: 25px; }
+#left-menu table td:first-child { padding-right: 10px; }
 
 #left-menu li input { margin-right: 10px; }
