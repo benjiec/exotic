@@ -63,6 +63,7 @@ function ExoticController($scope, $http) {
           }
         }
       }
+      $scope.attrs = $scope.attrs.sort();
     }
   }
 
