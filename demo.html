@@ -30,10 +30,10 @@ function demoSample(name, properties) {
 
 exoticSamples.get = function ($http, cb) {
   var samples = [];
-  samples.push(new demoSample('s1', {color: 'red', background: 'green'}));
-  samples.push(new demoSample('s2', {color: 'blue'}));
-  samples.push(new demoSample('s3', {color: 'blue', background: 'orange'}));
-  samples.push(new demoSample('s4', {color: 'orange', background: 'blue'}));
+  samples.push(new demoSample('s1', {color: ['red'], background: ['green']}));
+  samples.push(new demoSample('s2', {color: ['blue']}));
+  samples.push(new demoSample('s3', {color: ['blue', 'cyan'], background: ['orange']}));
+  samples.push(new demoSample('s4', {color: ['orange'], background: ['blue']}));
   cb(samples);
 }
 
@@ -58,7 +58,14 @@ function demoValue() {
 
 exoticValues.get = function ($http, samples, observation, cb) {
   var v = [];
-  for (var i=0; i<samples.length; i++) { v.push(new demoValue()); }
+  for (var i=0; i<samples.length; i++) {
+    if (samples[i].id == 's2' && observation.id == 'f1') {
+      v.push([new demoValue(), new demoValue()]);
+    }
+    else {
+      v.push([new demoValue()]);
+    }
+  }
   cb(v);
 }
 

@@ -15,18 +15,10 @@
     </th>
   </tr>
 
-  <tr ng-repeat="sample in selected_samples">
-    <td>
-      {{ sample.name }}
-    </td>
-    <td ng-repeat="k in show_properties">
-      {{ sample.properties()[k] }}
-    </td>
-    <td ng-repeat="field in attrs">
-      <img ng-if="field[2] === 'img'"
-           src="{{ data_by_sample[sample.id][field[0]][field[1]] }}" />
-      <span ng-if="field[2] !== 'img'"
-       >{{ data_by_sample[sample.id][field[0]][field[1]] }}</span>
+  <tr ng-repeat="row in table_rows">
+    <td ng-repeat="v in row">
+      <img ng-if="v[1] === 'img'" src="v[0]" />
+      <span ng-if="v[1] !== 'img'">{{ v[0] }}</span>
     </td>
   </tr>
 </table>
