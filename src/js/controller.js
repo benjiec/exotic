@@ -30,9 +30,11 @@ function ExoticController($scope, $http) {
     for (var i=0; i<$scope.show_properties.length; i++) {
       header_top.push('<th></th>');
     }
-    // observations
-    for (var i=0; i<$scope.selected_observations.length; i++) {
-      header_top.push('<th colspan="'+$scope.object_attrs.length+'">'+$scope.selected_observations[i].name+'</th>');
+    if ($scope.object_attrs !== undefined) {
+      // observations
+      for (var i=0; i<$scope.selected_observations.length; i++) {
+        header_top.push('<th colspan="'+$scope.object_attrs.length+'">'+$scope.selected_observations[i].name+'</th>');
+      }
     }
 
     // sample
@@ -41,9 +43,11 @@ function ExoticController($scope, $http) {
     for (var i=0; i<$scope.show_properties.length; i++) {
       header_bot.push('<th>'+$scope.show_properties[i]+'</th>');
     }
-    // observation attributes
-    for (var i=0; i<$scope.attrs.length; i++) {
-      header_bot.push('<th>'+$scope.attrs[i][1]+'</th>');
+    if ($scope.object_attrs !== undefined) {
+      // observation attributes
+      for (var i=0; i<$scope.attrs.length; i++) {
+        header_bot.push('<th>'+$scope.attrs[i][1]+'</th>');
+      }
     }
 
     for (var si=0; si<$scope.selected_samples.length; si++) {
