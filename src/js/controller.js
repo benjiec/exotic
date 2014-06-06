@@ -146,6 +146,7 @@ function ExoticController($scope, $http) {
       $scope.object_attrs = new_attrs;
     }
     update_attrs();
+    update_table();
   }
 
   function update_properties() {
@@ -157,8 +158,10 @@ function ExoticController($scope, $http) {
         if ($scope.properties[k] === undefined) {
           $scope.properties[k] = [];
         }
-        if ($scope.properties[k].indexOf(v) < 0) {
-          $scope.properties[k].push(v);
+        for (var j=0; j<v.length; j++) {
+          if ($scope.properties[k].indexOf(v[j]) < 0) {
+            $scope.properties[k].push(v[j]);
+          }
         }
       }
     }
@@ -169,8 +172,6 @@ function ExoticController($scope, $http) {
       $scope.filter_properties[k] = $scope.properties[k].slice(0);
     }
     $scope.show_properties = $scope.show_properties.sort();
-
-    update_table();
   }
 
   $scope.toggleProperty = function (prop) {
@@ -187,7 +188,6 @@ function ExoticController($scope, $http) {
       }
       $scope.show_properties = new_props;
     }
-
     update_table();
   }
 
@@ -204,13 +204,17 @@ function ExoticController($scope, $http) {
     var ss = [];
     for (var i=0; i<$scope.samples.length; i++) {
       // a sample is "selected" if all its properties appear in
-      // filter_properties
+      // filter_properties. if a sample has two values for a property, and one
+      // of the value is not in filter_properties, the sample will not be
+      // marked as selected.
       var sample = $scope.samples[i];
       var props = sample.properties();
       var selected = true;
       for (var k in props) {
         var v = props[k];
-        if ($scope.filter_properties[k].indexOf(v) < 0) { selected = false; break; }
+        for (var j=0; j<v.length; j++) {
+          if ($scope.filter_properties[k].indexOf(v[j]) < 0) { selected = false; break; }
+        }
       }
       if (selected === true) { ss.push(sample); }
     }
@@ -286,6 +290,7 @@ function ExoticController($scope, $http) {
     $scope.samples = samples;
     $scope.selected_samples = $scope.samples.slice(0);
     update_properties();
+    update_table();
   });
   exoticObservations.get($http, function(observations) { $scope.observations = observations; });
 }
