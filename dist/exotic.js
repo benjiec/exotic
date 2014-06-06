@@ -305,10 +305,12 @@ function ExoticController($scope, $http) {
     }
 
     if (to_fetch.length == 0) {
+      update_table();
       return;
     }
     $scope.fetches += 1;
 
+    console.log('fetching');
     exoticValues.get($http, to_fetch, observation, function(values) {
       for (var i=0; i<to_fetch.length; i++) {
         var sample = to_fetch[i];
@@ -343,14 +345,16 @@ function ExoticController($scope, $http) {
   $scope.selectObservation = function(observation) {
     if ($scope.selected_observations.indexOf(observation) > -1) {
       $scope.selected_observations.splice($scope.selected_observations.indexOf(observation), 1);
+      update_attrs();
+      update_table();
     }
     else {
       $scope.selected_observations.push(observation);
+      update_attrs();
+      update_table();
       // fetch data for this observation with all selected samples
       fetch($scope.selected_samples, observation);
     }
-    update_attrs();
-    update_table();
   }
 
   exoticSamples.get($http, function(samples) {
