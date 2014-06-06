@@ -122,7 +122,12 @@ function ExoticController($scope, $http) {
             var new_row = sample_rows[ri].slice(0);
             for (var fi=0; fi<$scope.attrs.length; fi++) {
               var f = $scope.attrs[fi];
-              new_row.push([obs_rows[j][f[0]][f[1]], f[2]]);
+              if (obs_rows[j][f[0]]) {
+                new_row.push([obs_rows[j][f[0]][f[1]], f[2]]);
+              }
+              else {
+                new_row.push(['', null]);
+              }
             }
             new_rows.push(new_row);
           }
