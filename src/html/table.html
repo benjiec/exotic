@@ -17,7 +17,7 @@
 
   <tr ng-repeat="row in table_rows">
     <td ng-repeat="v in row">
-      <img ng-if="v[1] === 'img'" src="v[0]" />
+      <img ng-if="v[1] === 'img'" src="{{ v[0] }}" />
       <span ng-if="v[1] !== 'img'">{{ v[0] }}</span>
     </td>
   </tr>

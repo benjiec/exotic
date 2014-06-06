@@ -1,24 +1,37 @@
-var app = angular.module('exotic', ['ngRoute', 'ngSanitize'])
-  .config(['$routeProvider', function($routeProvider) {
-    $routeProvider
-      .when('/', { template: JST['container'],
-                   controller: ExoticController})
-      .otherwise({redirectTo: '/'});
-  }]);
-
-app.directive('partial', function($compile) {
-  var linker = function(scope, element, attrs) {
-    element.html(JST[attrs.template]());
-    $compile(element.contents())(scope);
-  };
-  return {
-    link: linker,
-    restrict: 'E'
+exoticSamples = (new function () {
+  this.get = function ($http, cb) {
+    //
+    // Implemention should return list of objects with id and name attributes
+    // and properties method. id attribute should be unique. Properties should
+    // be a hash.
+    //
+    alert("Not configured with a customized list of samples.");
+    cb([]);
   }
 });
 
-app.filter('encodeURIComponent', function() { return window.encodeURIComponent; });
-app.filter('encodeURI', function() { return window.encodeURI; });
+exoticObservations = (new function () {
+  this.get = function ($http, cb) {
+    //
+    // Implemention should return list of objects with id and name attributes.
+    // id attribute should be unique.
+    //
+    alert("Not configured with a customized list of observations.");
+    cb([]);
+  }
+});
+
+exoticValues = (new function () {
+  this.get = function ($http, samples, observation, cb) {
+    //
+    // Implementation should return list of values with __attrs__ attribute
+    // and field values. The list of values should correspond with list of
+    // samples.
+    //
+    alert("Not configured to fetch value by samples and observations.");
+    cb([]);
+  }
+});
 
 'use strict';
 
@@ -317,37 +330,24 @@ function ExoticController($scope, $http) {
   exoticObservations.get($http, function(observations) { $scope.observations = observations; });
 }
 
-exoticSamples = (new function () {
-  this.get = function ($http, cb) {
-    //
-    // Implemention should return list of objects with id and name attributes
-    // and properties method. id attribute should be unique. Properties should
-    // be a hash.
-    //
-    alert("Not configured with a customized list of samples.");
-    cb([]);
+var app = angular.module('exotic', ['ngRoute', 'ngSanitize'])
+  .config(['$routeProvider', function($routeProvider) {
+    $routeProvider
+      .when('/', { template: JST['container'],
+                   controller: ExoticController})
+      .otherwise({redirectTo: '/'});
+  }]);
+
+app.directive('partial', function($compile) {
+  var linker = function(scope, element, attrs) {
+    element.html(JST[attrs.template]());
+    $compile(element.contents())(scope);
+  };
+  return {
+    link: linker,
+    restrict: 'E'
   }
 });
 
-exoticObservations = (new function () {
-  this.get = function ($http, cb) {
-    //
-    // Implemention should return list of objects with id and name attributes.
-    // id attribute should be unique.
-    //
-    alert("Not configured with a customized list of observations.");
-    cb([]);
-  }
-});
-
-exoticValues = (new function () {
-  this.get = function ($http, samples, observation, cb) {
-    //
-    // Implementation should return list of values with __attrs__ attribute
-    // and field values. The list of values should correspond with list of
-    // samples.
-    //
-    alert("Not configured to fetch value by samples and observations.");
-    cb([]);
-  }
-});
+app.filter('encodeURIComponent', function() { return window.encodeURIComponent; });
+app.filter('encodeURI', function() { return window.encodeURI; });
