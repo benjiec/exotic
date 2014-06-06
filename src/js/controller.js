@@ -62,10 +62,10 @@ function ExoticController($scope, $http) {
         var p = $scope.show_properties[pi];
         var v = props[p];
 
-        if (v === undefined || v.length == 1) {
+        if (v === undefined || v.length <= 1) {
           for (var ri=0; ri<sample_rows.length; ri++) {
-            if (v === undefined) {
-              sample_rows[ri].push([undefined, null]);
+            if (v === undefined || v.length == 0) {
+              sample_rows[ri].push(['', null]);
             } else {
               sample_rows[ri].push([v[0], null]);
             }
@@ -91,10 +91,10 @@ function ExoticController($scope, $http) {
           var obs = $scope.selected_observations[oi];
           var v = $scope.data_by_sample[sample.id][obs.id];
         
-          if (v === undefined || v.length == 1) {
+          if (v === undefined || v.length <= 1) {
             for (var ri=0; ri<obs_rows.length; ri++) {
-              if (v === undefined) {
-                obs_rows[ri][obs.id] = undefined;
+              if (v === undefined || v.length == 0) {
+                obs_rows[ri][obs.id] = '';
               } else {
                 obs_rows[ri][obs.id] = v[0];
               }
