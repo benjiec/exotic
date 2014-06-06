@@ -1,24 +1,2 @@
-<table class="table table-condensed table-bordered">
-  <tr class="success">
-    <th></th>
-    <th ng-repeat="k in show_properties"></th>
-    <th ng-repeat="obs in selected_observations" colspan="{{ object_attrs.length }}">
-      {{ obs.name }}
-    </th>
-  </tr>
-
-  <tr class="success">
-    <th> Sample </th>
-    <th ng-repeat="k in show_properties"> {{ k }} </th>
-    <th ng-repeat="field in attrs">
-      {{ field[1] }}
-    </th>
-  </tr>
-
-  <tr ng-repeat="row in table_rows">
-    <td ng-repeat="v in row">
-      <img ng-if="v[1] === 'img'" src="{{ v[0] }}" />
-      <span ng-if="v[1] !== 'img'">{{ v[0] }}</span>
-    </td>
-  </tr>
+<table class="table table-condensed table-bordered" ng-bind-html="table_html">
 </table>

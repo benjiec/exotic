@@ -52,10 +52,34 @@ function ExoticController($scope, $http) {
   $scope.show_properties = [];
   $scope.filter_properties = {};
 
-  $scope.table_rows = [];
+  $scope.table_html = undefined;
 
   function update_table() {
+    var header_top = [];
+    var header_bot = [];
     var rows = [];
+
+    // sample
+    header_top.push('<th></th>');
+    // sample properties
+    for (var i=0; i<$scope.show_properties.length; i++) {
+      header_top.push('<th></th>');
+    }
+    // observations
+    for (var i=0; i<$scope.selected_observations.length; i++) {
+      header_top.push('<th colspan="'+$scope.object_attrs.length+'">'+$scope.selected_observations[i].name+'</th>');
+    }
+
+    // sample
+    header_bot.push('<th>Sample</th>');
+    // sample properties
+    for (var i=0; i<$scope.show_properties.length; i++) {
+      header_bot.push('<th>'+$scope.show_properties[i]+'</th>');
+    }
+    // observation attributes
+    for (var i=0; i<$scope.attrs.length; i++) {
+      header_bot.push('<th>'+$scope.attrs[i][1]+'</th>');
+    }
 
     for (var si=0; si<$scope.selected_samples.length; si++) {
       var sample_rows = [];
@@ -91,14 +115,12 @@ function ExoticController($scope, $http) {
         }
       }
 
-      if ($scope.selected_observations.length > 0) {
+      if ($scope.selected_observations.length > 0 && $scope.data_by_sample[sample.id] !== undefined) {
         var obs_rows = [{}];
 
         for (var oi=0; oi<$scope.selected_observations.length; oi++) {
           var obs = $scope.selected_observations[oi];
           var v = $scope.data_by_sample[sample.id][obs.id];
-          console.log('sample '+sample.id+', obs '+obs.id);
-          console.log(v);
         
           if (v === undefined || v.length == 1) {
             for (var ri=0; ri<obs_rows.length; ri++) {
@@ -124,9 +146,7 @@ function ExoticController($scope, $http) {
             obs_rows = new_rows;
           }
         }
-        console.log('obs rows');
-        console.log(obs_rows);
-          
+
         var new_rows = [];
         for (var ri=0; ri<sample_rows.length; ri++) {
           for (var j=0; j<obs_rows.length; j++) {
@@ -142,11 +162,19 @@ function ExoticController($scope, $http) {
       }
 
       for (var ri=0; ri<sample_rows.length; ri++) {
-        rows.push(sample_rows[ri]);
+        var row_html = [];
+        for (var ci=0; ci<sample_rows[ri].length; ci++) {
+          var f = sample_rows[ri][ci];
+          if (f[1] === 'img') { row_html.push('<td><img src="'+f[0]+'"/></td>'); }
+          else { row_html.push('<td>'+f[0]+'</td>'); }
+        }
+        rows.push(row_html.join(''));
       }
     }
 
-    $scope.table_rows = rows;
+    $scope.table_html = '<tr class="success">'+header_top.join('')+'</tr>'+
+                        '<tr class="success">'+header_bot.join('')+'</tr>'+
+                        '<tr>'+rows.join('</tr><tr>')+'</tr>';
   }
 
   function update_attrs() {
