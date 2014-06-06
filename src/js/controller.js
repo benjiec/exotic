@@ -56,7 +56,7 @@ function ExoticController($scope, $http) {
         }
       }
 
-      if ($scope.selected_observations.length > 0) {
+      if ($scope.selected_observations.length > 0 && $scope.data_by_sample[sample.id] !== undefined) {
         var obs_rows = [{}];
 
         for (var oi=0; oi<$scope.selected_observations.length; oi++) {
