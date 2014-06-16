@@ -1,23 +1,4 @@
 TODO:
 
-Customized columns - e.g. EIC
-
 Output CSV
-Group/color by property and label
-
-Example:
-
-sample = datasets
-  properties
-    - timepoints
-    - reactions
-    - duplicates
-    - subjects
-    - buffers
-    - samples
-    - strains
-    - molecules
-
-observation = targets with names
-
-value = peaks
+Link to scatter-matrix
