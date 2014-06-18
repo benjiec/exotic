@@ -219,6 +219,8 @@ function ExoticController($scope, $http) {
 
     // need to refresh scatter matrix
     $scope.scatter_matrix = undefined;
+    var el = angular.element('#scatter-matrix-box');
+    el.empty();
   }
 
   $scope.showScatterMatrix = function () {
