@@ -6,6 +6,7 @@ function ExoticController($scope, $http) {
   $scope.observations = [];
   $scope.selected_samples = [];
   $scope.selected_observations = [];
+  $scope.scatter_matrix = undefined;
   
   $scope.fetches = 0;
   $scope.data_by_sample = {};
@@ -180,6 +181,16 @@ function ExoticController($scope, $http) {
       csv.push(row.join(','));
     }
     $scope.table_csv = csv.join('\n');
+
+    // need to refresh scatter matrix
+    $scope.scatter_matrix = undefined;
+  }
+
+  $scope.showScatterMatrix = function () {
+    if ($scope.scatter_matrix === undefined) {
+      $scope.scatter_matrix = new ScatterMatrix(null, $scope.table_csv, 'scatter-matrix-box');
+      $scope.scatter_matrix.render();
+    }
   }
 
   function update_attrs() {

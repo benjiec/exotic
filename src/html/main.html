@@ -19,6 +19,10 @@
     <textarea class="csv" readonly>{{ table_csv }}</textarea>
   </div>
 
+  <a href="javascript:void(0);" ng-click="showScatterMatrix()" ng-if="scatter_matrix===undefined"
+   >Show scatter matrix</a>
+  <div id="scatter-matrix-box"></div>
+
 </div>
 
 <div ng-if="selected_samples.length == 0 || selected_observations.length == 0">

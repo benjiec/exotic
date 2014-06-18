@@ -12,6 +12,7 @@
     "bootstrap": "3.0.0",
     "angular": "1.2.4",
     "angular-route": "1.2.4",
-    "angular-sanitize": "1.2.4"
+    "angular-sanitize": "1.2.4",
+    "scatter-matrix": "git://github.com/benjiec/scatter-matrix.git"
   }
 }

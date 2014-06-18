@@ -25,3 +25,9 @@ textarea.csv {
   height: 150px;
   border: 1px solid #f0f0f0;
 }
+
+.scatter-matrix-control { float: left; margin-right: 20px; }
+.scatter-matrix-control li label { margin-left: 5px; font-weight: normal; }
+.scatter-matrix-variable-control ul { list-style: none; padding-left: 10px; }
+.scatter-matrix-svg { float: left; margin-top: 15px; width: 1000px; }
+
