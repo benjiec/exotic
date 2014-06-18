@@ -87,7 +87,7 @@ function ExoticController($scope, $http) {
       // observation attributes
       for (var i=0; i<$scope.attrs.length; i++) {
         header_bot.push('<th>'+$scope.attrs[i][1]+'</th>');
-        header_raw.push($scope.attrs[i][1]);
+        header_raw.push($scope.attrs[i][3]+' '+$scope.attrs[i][1]);
       }
     }
 
@@ -226,7 +226,7 @@ function ExoticController($scope, $http) {
           var type = null;
           if ($scope.example_value.__type__) { type = $scope.example_value.__type__[j]; }
           if ($scope.object_attrs.indexOf(field) >= 0) {
-            $scope.attrs.push([$scope.selected_observations[i].id, field, type]);
+            $scope.attrs.push([$scope.selected_observations[i].id, field, type, $scope.selected_observations[i].name]);
           }
         }
       }
