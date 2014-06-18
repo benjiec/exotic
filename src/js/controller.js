@@ -1,6 +1,7 @@
 'use strict';
 
 function ExoticController($scope, $http) {
+  $scope.csv = false;
   $scope.samples = [];
   $scope.observations = [];
   $scope.selected_samples = [];
@@ -22,7 +23,9 @@ function ExoticController($scope, $http) {
   function update_table() {
     var header_top = [];
     var header_bot = [];
-    var rows = [];
+    var header_raw = [];
+    var rows_html = [];
+    var rows_raw = [];
 
     // sample
     header_top.push('<th></th>');
@@ -39,16 +42,21 @@ function ExoticController($scope, $http) {
 
     // sample
     header_bot.push('<th>Sample</th>');
+    header_raw.push('Sample');
     // sample properties
     for (var i=0; i<$scope.show_properties.length; i++) {
       header_bot.push('<th>'+$scope.show_properties[i]+'</th>');
+      header_raw.push($scope.show_properties[i]);
     }
     if ($scope.object_attrs !== undefined) {
       // observation attributes
       for (var i=0; i<$scope.attrs.length; i++) {
         header_bot.push('<th>'+$scope.attrs[i][1]+'</th>');
+        header_raw.push($scope.attrs[i][1]);
       }
     }
+
+    rows_raw.push(header_raw);
 
     for (var si=0; si<$scope.selected_samples.length; si++) {
       var sample_rows = [];
@@ -137,18 +145,41 @@ function ExoticController($scope, $http) {
 
       for (var ri=0; ri<sample_rows.length; ri++) {
         var row_html = [];
+        var row_raw = [];
         for (var ci=0; ci<sample_rows[ri].length; ci++) {
           var f = sample_rows[ri][ci];
           if (f[1] === 'img') { row_html.push('<td><img src="'+f[0]+'"/></td>'); }
           else { row_html.push('<td>'+f[0]+'</td>'); }
+          row_raw.push(f[0]);
         }
-        rows.push(row_html.join(''));
+        rows_html.push(row_html.join(''));
+        rows_raw.push(row_raw);
       }
     }
 
     $scope.table_html = '<tr class="success">'+header_top.join('')+'</tr>'+
                         '<tr class="success">'+header_bot.join('')+'</tr>'+
-                        '<tr>'+rows.join('</tr><tr>')+'</tr>';
+                        '<tr>'+rows_html.join('</tr><tr>')+'</tr>';
+
+    var csv = [];
+    for (var ri=0; ri<rows_raw.length; ri++) {
+      var row = rows_raw[ri];
+      for (var i=0; i<row.length; i++) {
+        var v = row[i];
+        if (v !== undefined) {
+          v = ''+v;
+          // dumb escape logic for csv value - basically gets rid of space and quotes
+          v = v.replace("\n", " ");
+          v = v.replace("\t", " ");
+          v = v.replace("\"", "");
+          v = v.replace("\'", "");
+          v = "\""+v+"\"";
+          row[i] = v;
+        }
+      }
+      csv.push(row.join(','));
+    }
+    $scope.table_csv = csv.join('\n');
   }
 
   function update_attrs() {

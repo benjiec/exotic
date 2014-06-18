@@ -9,8 +9,16 @@
   <p>
     {{ selected_samples.length }} sample(s),
     {{ selected_observations.length }} observation(s).
+    <a href="javascript:void(0);" ng-click="csv=!csv;">Toggle CSV</a>.
   </p>
-  <partial template="table"></partial>
+
+  <div ng-if="!csv">
+    <partial template="table"></partial>
+  </div>
+  <div ng-if="csv">
+    <textarea class="csv" readonly>{{ table_csv }}</textarea>
+  </div>
+
 </div>
 
 <div ng-if="selected_samples.length == 0 || selected_observations.length == 0">

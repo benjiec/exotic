@@ -17,3 +17,11 @@
 #left-menu table td:first-child { padding-right: 10px; }
 
 #left-menu li input { margin-right: 10px; }
+
+textarea.csv {
+  font-family: courier;
+  font-size: 0.8em;
+  width: 100%;
+  height: 150px;
+  border: 1px solid #f0f0f0;
+}
