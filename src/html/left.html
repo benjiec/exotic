@@ -97,7 +97,7 @@
                ng-checked="show_properties.indexOf(name) >= 0"
                ng-click="toggleProperty(name)"
          /> {{ name }}
-        <table>
+        <table ng-if="show_properties.indexOf(name) >= 0">
           <tr ng-repeat="value in props">
             <td>
               <input type="checkbox"
