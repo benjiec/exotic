@@ -12,10 +12,10 @@
     <a href="javascript:void(0);" ng-click="csv=!csv;">Toggle CSV</a>.
   </p>
 
-  <div ng-if="!csv">
+  <div ng-class="!csv ? 'show' : 'hidden'">
     <partial template="table"></partial>
   </div>
-  <div ng-if="csv">
+  <div ng-class="csv ? 'show' : 'hidden'">
     <textarea class="csv" readonly>{{ table_csv }}</textarea>
   </div>
 
